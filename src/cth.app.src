@@ -1,0 +1,19 @@
+{application, cth, [
+    {description, "Erlang common test helpers"},
+    {vsn, git},
+    {registered, []},
+    {mod, { cth_app, []}},
+    {applications, [
+       kernel,
+       stdlib,
+       jiffy,
+       wsock,
+       hackney
+    ]},
+    {env,[]},
+    {modules, []},
+
+    {maintainers, ["Yakov Kozlov"]},
+    {licenses, ["MIT"]},
+    {links, [{"Github", "https://github.com/egobrain/cth"}]}
+ ]}.

@@ -1,0 +1,26 @@
+{"1.1.0",
+[{<<"certifi">>,{pkg,<<"certifi">>,<<"0.4.0">>},1},
+ {<<"hackney">>,
+  {git,"https://github.com/benoitc/hackney.git",
+       {ref,"66a53291d3fef4f46f7baa99016725c7659aa022"}},
+  0},
+ {<<"idna">>,{pkg,<<"idna">>,<<"1.2.0">>},1},
+ {<<"jiffy">>,
+  {git,"https://github.com/davisp/jiffy.git",
+       {ref,"06aaf440e091c9fd5f8aea557ac760a33bd37130"}},
+  0},
+ {<<"metrics">>,{pkg,<<"metrics">>,<<"1.0.1">>},1},
+ {<<"mimerl">>,{pkg,<<"mimerl">>,<<"1.0.2">>},1},
+ {<<"ssl_verify_fun">>,{pkg,<<"ssl_verify_fun">>,<<"1.1.0">>},1},
+ {<<"wsock">>,
+  {git,"git://github.com/madtrick/wsock.git",
+       {ref,"9ac8a7d6a9819cbb407de0a24551c068fc2be28a"}},
+  0}]}.
+[
+{pkg_hash,[
+ {<<"certifi">>, <<"A7966EFB868B179023618D29A407548F70C52466BF1849B9E8EBD0E34B7EA11F">>},
+ {<<"idna">>, <<"AC62EE99DA068F43C50DC69ACF700E03A62A348360126260E87F2B54ECED86B2">>},
+ {<<"metrics">>, <<"25F094DEA2CDA98213CECC3AEFF09E940299D950904393B2A29D191C346A8486">>},
+ {<<"mimerl">>, <<"993F9B0E084083405ED8252B99460C4F0563E41729AB42D9074FD5E52439BE88">>},
+ {<<"ssl_verify_fun">>, <<"EDEE20847C42E379BF91261DB474FFBE373F8ACB56E9079ACB6038D4E0BF414F">>}]}
+].
