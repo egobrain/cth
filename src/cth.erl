@@ -1,6 +1,7 @@
 -module(cth).
 
 -include_lib("common_test/include/ct.hrl").
+-include_lib("hackney/include/hackney_lib.hrl").
 
 -export([
     %% HTTP related funs
@@ -123,16 +124,21 @@ assert(true, _, _) -> ok;
 assert(false, ErrorMessage, Args) -> stop(ErrorMessage, Args).
 
 expand_url(Config, ShortUrlData) ->
-    {ShortUrl, Params} = encode_params(ShortUrlData),
+    ShortUrl = encode_params(ShortUrlData),
     Host = ?config(host, Config),
     Port = ?config(http_port, Config),
     Version = ?config(api_version, Config),
-    iolist_to_binary(["http://", Host, ":", integer_to_list(Port), "/api/", Version, ShortUrl, "?", Params]).
+    iolist_to_binary(["http://", Host, ":", integer_to_list(Port), "/api/", Version, ShortUrl]).
 
 encode_params({Url, Params}) ->
-    {Url, hackney_url:qs(maps:to_list(Params))};
-encode_params(Url) ->
-    encode_params({Url, #{}}).
+    #hackney_url{path=Path, qs=Qs}=hackney_url:parse_url(Url),
+    QsParams = atomize_keys(maps:from_list(hackney_url:parse_qs(Qs))),
+    ResultParams = maps:merge(QsParams, Params),
+    case maps:size(ResultParams) of
+        0 -> Path;
+        _ -> [Path, "?", hackney_url:qs(maps:to_list(ResultParams))]
+    end;
+encode_params(Url) -> Url.
 
 try_encode({multipart, _}=Body, Headers) ->
     {Body, Headers};
