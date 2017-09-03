@@ -41,13 +41,15 @@ match(Expected, Given) ->
     Diff = strict_diff(Expected, Given),
     cth:assert(Diff =:= [],
         "given value is not equal to expected~n"
-        "diff    : ~p", [Diff]).
+        "diff    : ~p", [Diff]),
+    Given.
 
 like(Expected, Given) ->
     Diff = soft_diff(Expected, Given),
     cth:assert(Diff =:= [],
         "given value is not equal to expected~n"
-        "diff    : ~p", [Diff]).
+        "diff    : ~p", [Diff]),
+    Given.
 
 strict_diff(Expected, Given) ->
     diff(Expected, Given, fun strict/1).
