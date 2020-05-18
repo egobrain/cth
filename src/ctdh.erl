@@ -23,6 +23,7 @@
 
     check/1,
     check/2,
+    pipe/2,
 
     any/0
 ]).
@@ -124,6 +125,16 @@ check(BoolFun, Msg) ->
             false -> {error, Msg}
         end
     end).
+
+pipe(DecoderFun, Expected) ->
+    fun(To, Path, Log, DiffF) ->
+        case DecoderFun(To) of
+            {ok, DecodedTo} ->
+                diff_(Expected, DecodedTo, Path, Log, DiffF);
+            {error, Reason} ->
+                [#{op => check, path => path(Path), value => To, error => Reason}|Log]
+        end
+    end.
 
 any() -> check(fun(_) -> ok end).
 
