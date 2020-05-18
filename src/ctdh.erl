@@ -332,6 +332,30 @@ check_test_() ->
      ], strict_diff([#{a => check(IsBinary)}], [#{a => 1}])))
     ].
 
+pipe_test_() ->
+    IntDecoder =
+        fun (V) when is_integer(V) -> {ok, V};
+            (V) when is_binary(V) ->
+                try binary_to_integer(V) of Int -> {ok, Int}
+                catch _:_ -> {error, <<"can't decode integer">>}
+                end;
+            (_) -> {error, <<"bad integer">>}
+        end,
+    [
+        ?_test(?assertEqual([], strict_diff(pipe(IntDecoder, 1), 1))),
+        ?_test(?assertEqual([], strict_diff(pipe(IntDecoder, 1), <<"1">>))),
+        ?_test(?assertEqual([], strict_diff([pipe(IntDecoder, 2)], [<<"2">>]))),
+        ?_test(?assertEqual([
+            #{op => check, path => <<>>, value => atom, error => <<"bad integer">>}
+        ], strict_diff(pipe(IntDecoder, 0), atom))),
+        ?_test(?assertEqual([
+            #{op => check, path => <<>>, value => <<"str">>, error => <<"can't decode integer">>}
+        ], strict_diff(pipe(IntDecoder, 0), <<"str">>))),
+        ?_test(?assertEqual([
+            #{op => replace, path => <<>>, value => 10}
+        ], strict_diff(pipe(IntDecoder, 0), <<"10">>)))
+    ].
+
 list_contains_exact_test_() ->
     [
      ?_test(?assertEqual([], strict_diff(list_contains_exact([1,2,3]), [1,2,3]))),
