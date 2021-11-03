@@ -7,7 +7,6 @@
        kernel,
        stdlib,
        jiffy,
-       wsock,
        hackney
     ]},
     {env,[]},
