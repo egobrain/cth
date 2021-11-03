@@ -13,7 +13,7 @@
  {<<"mimerl">>,{pkg,<<"mimerl">>,<<"1.0.2">>},1},
  {<<"ssl_verify_fun">>,{pkg,<<"ssl_verify_fun">>,<<"1.1.0">>},1},
  {<<"wsock">>,
-  {git,"git://github.com/madtrick/wsock.git",
+  {git,"https://github.com/madtrick/wsock.git",
        {ref,"9ac8a7d6a9819cbb407de0a24551c068fc2be28a"}},
   0}]}.
 [
